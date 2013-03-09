@@ -551,17 +551,22 @@ void modeScreen()
 {
   
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("Press A for Manual");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("Press C for inhouse");
+  
+  
+  GLCD.CursorTo(0,0);
+    GLCD.print ("Mode Screen");
+    
+  
   GLCD.CursorTo(0, 2);
-  GLCD.println("Press D for Daily ");
+  GLCD.println("Press A for Manual");
   GLCD.CursorTo(0, 3);
+  GLCD.println("Press C for inhouse");
+  GLCD.CursorTo(0, 4);
+  GLCD.println("Press D for Daily ");
+  GLCD.CursorTo(0, 5);
   GLCD.println("Press B for back ");
   readKeypad();
-    GLCD.CursorTo(0,4);
-    GLCD.print ("KeyPressed =");
+    
     
     while (1)
     
@@ -605,15 +610,19 @@ void settingsScreen()
 
 {
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("Press A for Mode");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("Press C for Cons/Bill");
+  
+  GLCD.CursorTo(0,0);
+    GLCD.print ("Settings Screen");
+    
+  
   GLCD.CursorTo(0, 2);
+  GLCD.println("Press A for Mode");
+  GLCD.CursorTo(0, 3);
+  GLCD.println("Press C for Cons/Bill");
+  GLCD.CursorTo(0, 4);
   GLCD.println("Press B for back ");
   readKeypad();
-    GLCD.CursorTo(0,3);
-    GLCD.print ("KeyPressed =");
+    
     
     while (1)
     
@@ -647,19 +656,23 @@ void manualScreen()
 
 {
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("Are you sure");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("you want");
+  
+  GLCD.CursorTo(0,0);
+    GLCD.print ("ManualMode Screen");
+    
+  
   GLCD.CursorTo(0, 2);
-  GLCD.println("manual mode? ");
+  GLCD.println("Are you sure");
   GLCD.CursorTo(0, 3);
-  GLCD.println("# to accept ");
+  GLCD.println("you want");
   GLCD.CursorTo(0, 4);
-  GLCD.println("C to cancel");
+  GLCD.println("manual mode? ");
+  GLCD.CursorTo(0, 5);
+  GLCD.println("# to accept ");
+  GLCD.CursorTo(0, 6);
+  GLCD.println("Press C to cancel");
   readKeypad();
-    GLCD.CursorTo(0,5);
-    GLCD.print ("KeyPressed =");
+    
     
     while (1)
     
@@ -692,19 +705,22 @@ void inHouseScreen()
 
 {
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("Are you Sure");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("you want");
+  GLCD.CursorTo(0,0);
+    GLCD.print ("inHouse Screen");
+    
+  
   GLCD.CursorTo(0, 2);
-  GLCD.println("inhouse mode? ");
+  GLCD.println("Are you Sure");
   GLCD.CursorTo(0, 3);
-  GLCD.println(" # to accept");
+  GLCD.println("you want");
   GLCD.CursorTo(0, 4);
-  GLCD.println("C to cancel");
+  GLCD.println("inhouse mode? ");
+  GLCD.CursorTo(0, 5);
+  GLCD.println(" # to accept");
+  GLCD.CursorTo(0, 6);
+  GLCD.println("Press C to cancel");
   readKeypad();
-    GLCD.CursorTo(0,5);
-    GLCD.print ("KeyPressed =");
+   
     
     while (1)
     
@@ -738,21 +754,24 @@ void dailyScreen()
 
 {
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("Enter hour you");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("will be back");
+  GLCD.CursorTo(0,0);
+    GLCD.print ("daily Screen");
+    
+  
   GLCD.CursorTo(0, 2);
-  GLCD.println("24 hour format ");
+  GLCD.println("Enter hour you");
   GLCD.CursorTo(0, 3);
-  GLCD.println("only 2 digits ");
+  GLCD.println("will be back");
   GLCD.CursorTo(0, 4);
-  GLCD.println("# to accept");
+  GLCD.println("24 hour format ");
   GLCD.CursorTo(0, 5);
-  GLCD.println("C to cancel");
+  GLCD.println("only 2 digits ");
+  GLCD.CursorTo(0, 6);
+  GLCD.println("Press # to accept");
+  GLCD.CursorTo(0, 7);
+  GLCD.println("Press C to cancel");
   readKeypad();
-    GLCD.CursorTo(0,6);
-    GLCD.print ("KeyPressed =");
+    
     
     while (1)
     
@@ -785,21 +804,24 @@ void consumptionScreen()
 
 {
   GLCD.ClearScreen();
-  GLCD.CursorTo(0, 0);
-  GLCD.println("You consumption");
-  GLCD.CursorTo(0, 1);
-  GLCD.println("and bill for");
+  GLCD.CursorTo(0,0);
+    GLCD.print ("Consumption Screen");
+    
+  
   GLCD.CursorTo(0, 2);
-  GLCD.println("last hour ");
+  GLCD.println("You consumption");
   GLCD.CursorTo(0, 3);
-  GLCD.println("consumption=");
+  GLCD.println("and bill for");
   GLCD.CursorTo(0, 4);
-  GLCD.println("bill AED");
+  GLCD.println("last hour ");
   GLCD.CursorTo(0, 5);
-  GLCD.println("B for back");
+  GLCD.println("consumption=");
+  GLCD.CursorTo(0, 6);
+  GLCD.println("bill AED");
+  GLCD.CursorTo(0, 7);
+  GLCD.println("Press B for back");
   readKeypad();
-    GLCD.CursorTo(0,6);
-    GLCD.print ("KeyPressed =");
+    
     
     
     while (1)
