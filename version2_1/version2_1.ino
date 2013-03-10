@@ -38,8 +38,10 @@ volatile double currentConsumed=0.0;
 volatile double totalCurrent=0.0;
 volatile double averageCurrentOverOneHour=0.0;
 volatile double averagePowerOverOneHour=0.0;
-volatile double cost=0.0;
+volatile double Hour24Cost=0.0;
 volatile double totalPowerForTheDay=0.0;
+volatile double oneDayPower=0.0;
+volatile double kwNow=0.0;
 
 
 
@@ -251,7 +253,9 @@ void readPower()
  
   
   //current sensor over reading by 0.25 amps
-  currentConsumed =(emon1.calcIrms(1480))-0.25;
+  currentConsumed =(emon1.calcIrms(1480))-0.21;
+  
+  kwNow =     currentConsumed *220.0*0.001;
   
   if (currentConsumed < 20.0) 
   
@@ -259,7 +263,9 @@ void readPower()
 
   counter = counter +1;
   
-    
+  Serial.print("counter=");
+  Serial.print(counter);  
+  Serial.println();
   
   
   totalCurrent=totalCurrent+  currentConsumed;
@@ -267,28 +273,24 @@ void readPower()
   
   
  
- if (counter == 2)
+ if (counter == 900)
  
  {
    
    hourCounter=hourCounter+1;
-    averageCurrentOverOneHour = totalCurrent/2.0;
+    averageCurrentOverOneHour = totalCurrent/900.0;
     
-        Serial.print (" aC1h= ");
-    Serial.print (averageCurrentOverOneHour);
-    
+    Serial.print(" hourCounter=");   
+    Serial.print(hourCounter);
+    Serial.println();
     
     // to ocnvert watts to kiliwatt multiply by 0.001
     
   averagePowerOverOneHour =     averageCurrentOverOneHour *220.0*0.001;
   
-          Serial.print (" aP1h= ");
+          
   
-  Serial.println (  averagePowerOverOneHour);
   
-  // for expats the rate is 20 fils per kilowatt hour
-  
-  cost = averagePowerOverOneHour * 20/100.0;
   
   
   
@@ -313,11 +315,19 @@ void readPower()
       
     }
     
-//EEPROM.write(0,totalPowerForTheDay);
 
+oneDayPower =totalPowerForTheDay;
 
+// for expats the cost is 20 fils per Kwh
     
+
+Hour24Cost = oneDayPower*.20;
+;
+    totalPowerForTheDay=0.0;
     hourCounter=0;
+    
+    // for expats the cost is 20 fils per Kwh
+    
   }
   
   
@@ -560,15 +570,18 @@ void defaultScreen()
     GLCD.print(now.second(), DEC);
     GLCD.print(' ');
     GLCD.CursorTo(0, 4);
-    GLCD.print("C=");
-    GLCD.print( counter ); 
+    GLCD.print("kwNow=");
+    GLCD.print( kwNow ); 
     
-   GLCD.print( " H= ");    
- GLCD.print( hourCounter );
- GLCD.print( " T=");
- GLCD.print(totalPowerForTheDay);
+   
+ GLCD.print( " Kwh24=");
+ GLCD.print(oneDayPower);
     
-    GLCD.CursorTo(0,5);
+    GLCD.CursorTo(0, 5);
+    GLCD.print( "Cost24h AED=");
+ GLCD.print(Hour24Cost);
+    
+    GLCD.CursorTo(0,6);
     GLCD.print ("Mode= inHouse");
     
     
