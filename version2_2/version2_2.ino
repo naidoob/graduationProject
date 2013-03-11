@@ -44,7 +44,10 @@ volatile double totalPowerForTheDay=0.0;
 volatile double oneDayPower=0.0;
 volatile double kwNow=0.0;
 volatile double apooh;
-volatile int bedroomDelay=0;;
+volatile int bedroomDelay=0;
+volatile int firstDigit=10;
+volatile int secondDigit=10;
+
 
 //mode =0 inhouse default mode
 //mode =1 manual mode
@@ -695,7 +698,7 @@ void modeScreen()
   GLCD.println("Press D for Daily ");
   GLCD.CursorTo(0, 5);
   GLCD.println("Press B for back ");
-  readKeypad();
+  
     
     
     while (1)
@@ -751,7 +754,7 @@ void settingsScreen()
   GLCD.println("Press C for Cons/Bill");
   GLCD.CursorTo(0, 4);
   GLCD.println("Press B for back ");
-  readKeypad();
+  
     
     
     while (1)
@@ -801,7 +804,7 @@ void manualScreen()
   GLCD.println("# to accept ");
   GLCD.CursorTo(0, 6);
   GLCD.println("Press C to cancel");
-  readKeypad();
+  
     
     
     while (1)
@@ -849,7 +852,7 @@ void inHouseScreen()
   GLCD.println(" # to accept");
   GLCD.CursorTo(0, 6);
   GLCD.println("Press C to cancel");
-  readKeypad();
+  
    
     
     while (1)
@@ -895,12 +898,16 @@ void dailyScreen()
   GLCD.CursorTo(0, 4);
   GLCD.println("24 hour format ");
   GLCD.CursorTo(0, 5);
-  GLCD.println("only 2 digits ");
+  GLCD.println("only 2 digits=  ");
   GLCD.CursorTo(0, 6);
   GLCD.println("Press # to accept");
   GLCD.CursorTo(0, 7);
   GLCD.println("Press C to cancel");
-  readKeypad();
+  
+  
+  readFirstDigit();
+    
+    readSecondDigit();
     
     
     while (1)
@@ -952,7 +959,7 @@ void consumptionScreen()
   GLCD.print(Hour24Cost);
   GLCD.CursorTo(0, 7);
   GLCD.println("Press B for back");
-  readKeypad();
+  
     
     
     
@@ -960,6 +967,8 @@ void consumptionScreen()
     
     {
       readKeypad();
+      
+      
     GLCD.print (customKey);
     
     
@@ -1007,6 +1016,49 @@ void dailyFunction()
 }
 
 
+
+void readFirstDigit()
+
+{
+  while (1)
+  
+  {
+    readKeypad();
+    
+  firstDigit = customKey - '0';
+  
+  if (firstDigit <10)
+  
+  {
+    break;
+  }
+  
+  
+
+  }
+  
+}
+    
+void readSecondDigit()
+
+{
+  while (1)
+  
+  {
+    readKeypad();
+    
+  secondDigit = customKey - '0';
+  
+  if (secondDigit <10)
+  
+  {
+    break;
+  }
+
+  }
+  
+  
+}
 
 
 void loop ()
