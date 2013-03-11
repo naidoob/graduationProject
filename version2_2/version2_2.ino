@@ -637,11 +637,12 @@ Serial.print(mode);
       digitalWrite (Airconditionar,LOW);
     }
     
-    else
+    if ((t>24.00)&&(mode==0))
     
     {
       digitalWrite (Airconditionar,HIGH);
     }
+    
     
     
     
