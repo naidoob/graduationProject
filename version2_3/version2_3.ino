@@ -45,8 +45,11 @@ volatile double oneDayPower=0.0;
 volatile double kwNow=0.0;
 volatile double apooh;
 volatile int bedroomDelay=0;
-volatile int firstDigit=10;
-volatile int secondDigit=10;
+
+byte hoursBack=0;
+volatile int timeToSwitchOnWaterHeater=0;
+volatile int hoursToSwitchOnWaterHeater=0;
+
 
 
 //mode =0 inhouse default mode
@@ -236,6 +239,12 @@ else
   
 }
 
+if ((mode==2) && ((now.hour()==timeToSwitchOnWaterHeater)))
+
+{
+  digitalWrite (waterheater, HIGH);
+}
+
 
 }
 
@@ -300,7 +309,7 @@ void readPower()
       bedroomDelay=0;
     }
   
-  Serial.print (bedroomDelay);
+  //Serial.print (bedroomDelay);
  
  if (counter == 900)
  
@@ -575,7 +584,7 @@ void defaultScreen()
 {
 
  
-Serial.print(mode);
+
   GLCD.ClearScreen();
   
   repeat:
@@ -894,23 +903,19 @@ void dailyScreen()
     
   
   GLCD.CursorTo(0, 2);
-  GLCD.println("Enter hour you");
+  GLCD.println("Press # to");
   GLCD.CursorTo(0, 3);
-  GLCD.println("will be back");
+  GLCD.println("enter the number");
   GLCD.CursorTo(0, 4);
-  GLCD.println("24 hour format ");
-  GLCD.CursorTo(0, 5);
-  GLCD.println("only 2 digits=  ");
+  GLCD.println("of hours you will ");
+
   GLCD.CursorTo(0, 6);
-  GLCD.println("Press # to accept");
+  GLCD.println(" be gone for");
   GLCD.CursorTo(0, 7);
   GLCD.println("Press C to cancel");
   
   
-  readFirstDigit();
-    
-    readSecondDigit();
-    
+  
     
     while (1)
     
@@ -1013,54 +1018,85 @@ void dailyFunction()
 {
   mode=2;
   gotoDailyMode();
+  
+  setHoursScreen();
+  
   defaultScreen();
   
 }
 
-
-
-void readFirstDigit()
+void setHoursScreen()
 
 {
-  while (1)
-  
-  {
-    readKeypad();
+  GLCD.ClearScreen();
+  GLCD.CursorTo(0,0);
+    GLCD.print ("set hours screen");
     
-  firstDigit = customKey - '0';
   
-  if (firstDigit <10)
-  
-  {
-    break;
-  }
-  
+  GLCD.CursorTo(0, 2);
+  GLCD.println("Enter a number ");
+  GLCD.CursorTo(0, 3);
+  GLCD.println("from 1 to 9");
   
 
-  }
+  
+  GLCD.CursorTo(0, 7);
+  GLCD.println("Press C to cancel");
+  
+  
+  
+    
+    while (1)
+    
+    {
+      readKeypad();
+      GLCD.print(customKey);
+  
+  hoursBack = customKey -'0';
+    
+    if ((hoursBack >0)&&(hoursBack<10))
+    
+    {
+      Serial.print("hoursBack = ");
+      Serial.print(hoursBack);
+            Serial.println();
+      Serial.print("hour Now= ");
+      Serial.print(now.hour());
+                  Serial.println();
+      hoursToSwitchOnWaterHeater = hoursBack-1;
+      Serial.print("HTWOWH= ");
+      Serial.print(hoursToSwitchOnWaterHeater);
+                  Serial.println();
+      timeToSwitchOnWaterHeater = now.hour()+hoursToSwitchOnWaterHeater;
+      Serial.print("TTWOWH= ");
+      Serial.print(timeToSwitchOnWaterHeater);
+                  Serial.println();
+      
+      defaultScreen();
+      
+    }
+    
+    if (customKey == 'C')
+    
+    {
+      defaultScreen();
+    }
+    
+    
+    
+  
+    }
+  
   
 }
-    
-void readSecondDigit()
 
-{
-  while (1)
-  
-  {
-    readKeypad();
-    
-  secondDigit = customKey - '0';
-  
-  if (secondDigit <10)
-  
-  {
-    break;
-  }
 
-  }
   
   
-}
+
+
+  
+
 
 
 void loop ()
