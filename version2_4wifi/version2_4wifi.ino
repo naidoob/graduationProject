@@ -111,7 +111,7 @@ float h;
 float t;
 
 //LDR light sensor
-int LDRPin = A7;
+int LDRPin = A14;
 int LDRSensorValue;
 int LDRSensorThreshold = 250;
 
@@ -228,7 +228,7 @@ attachInterrupt(0, changeStateOfBedroomLight, CHANGE);
 
     Wire.begin();
     RTC.begin();
-        RTC.adjust(DateTime(__DATE__, __TIME__));
+        //RTC.adjust(DateTime(__DATE__, __TIME__));
     
     
  
